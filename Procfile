@@ -1,0 +1,1 @@
+web: gunicorn twitty_py.wsgi --log-file -
