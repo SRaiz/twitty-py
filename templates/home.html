@@ -4,9 +4,15 @@
     
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ pageheader }}</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <h1 class="h3 mb-0 text-gray-800">
+            {{ pageheader }}
+        </h1>
+        
+        <form id="auth_twitter" action="authenticate" method="POST">    {% csrf_token %}
+            <a href="JavaScript:void(0)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="document.forms['auth_twitter'].submit();"><i class="fab fa-twitter fa-sm text-white-50"></i>
+                Call Twitter API
+            </a>
+        </form>
     </div>
 
     <!-- Content Row -->
