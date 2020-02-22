@@ -57,7 +57,9 @@ ROOT_URLCONF = 'twitty_py.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Added all the static files to the directory and specify the same
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 #   Activate django-heroku settings
 django_heroku.settings(locals())

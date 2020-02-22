@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def home(request):
-    return HttpResponse('Hello There. Call twitter')
+    return render(request, 'home.html', {'pageheader': 'Dashboard'})
