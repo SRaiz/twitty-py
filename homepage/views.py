@@ -4,6 +4,10 @@ import tweepy
 from django.http import HttpResponse
 from django.shortcuts import render
 
+import update_sql
+
+from .models import Tweet
+
 
 def home(request):
     return render(request, 'home.html', {'pageheader': 'Dashboard'})
@@ -20,29 +24,27 @@ def authenticate_twitter(request):
 
     #   The search term and date from which data is required. Retweets are filtered here
     search_words = '#bushfires' + ' -filter:retweets'
-    date_since = '2020-02-01'
+    date_since = '2019-09-01'
 
     #   Collect Tweets
-    tweets = tweepy.Cursor( api.search, q = search_words, lang = 'en', since = date_since, tweet_mode = 'extended' ).items(5)
+    tweets = tweepy.Cursor( api.search, q = search_words, lang = 'en', since = date_since, tweet_mode = 'extended' ).items()
 
     tweets_to_show = []
     for tweet in tweets:
-        # print('================')
-        # print(tweet.entities.unwound.url)
-        # print('================')
-        temp_tweet = {
-            'created_at': tweet.created_at,
-            'id': tweet.id,
-            'text': tweet.full_text,
-            'user': {
-                'name': tweet.user.name,
-                'screen_name': tweet.user.screen_name,
+        tweets_to_show.append(
+            {
+                'created_at': tweet.created_at,
+                'id': tweet.id,
+                'text': tweet.full_text,
+                'user_name': tweet.user.name,
+                'user_screenname': tweet.user.screen_name,
                 'location': tweet.user.location,
-                'description': tweet.user.description
+                'description': tweet.user.description,
+                'url': ''
             }
-            #'url': tweet.entities.urls
-        }
-        tweets_to_show.append(temp_tweet)
+        )
 
-
-    return render(request, 'home.html', {'tweets': tweets_to_show})
+    tweets_df = update_sql.update_tweets(tweets_to_show)
+    
+    tweets = Tweet.objects.all()
+    return render(request, 'home.html', {'tweets': tweets})

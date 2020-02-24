@@ -24,7 +24,6 @@
                     <thead>
                         <tr>
                             <th>User Name</th>
-                            <th>User Description</th>
                             <th>Tweet</th>
                             <th>Tweet Time</th>
                             <th>Location</th>
@@ -33,11 +32,10 @@
                     <tbody>
                         {% for tweet in tweets %}
                             <tr>
-                                <td>{{ tweet.user.name }}</td>
-                                <td>{{ tweet.user.description }}</td>
+                                <td>{{ tweet.user_name }}</td>
                                 <td>{{ tweet.text }}</td>
                                 <td>{{ tweet.created_at }}</td>
-                                <td>{{ tweet.user.location }}</td>
+                                <td>{{ tweet.location }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
