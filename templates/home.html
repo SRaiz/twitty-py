@@ -7,7 +7,6 @@
         <h1 class="h3 mb-0 text-gray-800">
             {{ pageheader }}
         </h1>
-        
         <form id="auth_twitter" action="authenticate" method="POST">    {% csrf_token %}
             <a href="JavaScript:void(0)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="document.forms['auth_twitter'].submit();"><i class="fab fa-twitter fa-sm text-white-50"></i>
                 Call Twitter API
@@ -15,9 +14,35 @@
         </form>
     </div>
 
-    <!-- Content Row -->
-    <div class="row">
-        <h1>This is home page</h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3" style="border-top: .25rem solid #1cc88a!important;">
+            <h6 class="m-0 font-weight-bold text-primary">Tweets on Australian Bushfires</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>User Description</th>
+                            <th>Tweet</th>
+                            <th>Tweet Time</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tweet in tweets %}
+                            <tr>
+                                <td>{{ tweet.user.name }}</td>
+                                <td>{{ tweet.user.description }}</td>
+                                <td>{{ tweet.text }}</td>
+                                <td>{{ tweet.user.location }}</td>
+                                <td>{{ tweet.created_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <!-- End Of Content Row -->
 {% endblock %}
