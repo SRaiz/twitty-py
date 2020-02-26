@@ -10,7 +10,8 @@ from .models import Tweet
 
 
 def home(request):
-    return render(request, 'home.html', {'pageheader': 'Dashboard'})
+    tweets = Tweet.objects.all();
+    return render(request, 'home.html', {'pageheader': 'Dashboard', 'tweets': tweets})
 
 
 def authenticate_twitter(request):
