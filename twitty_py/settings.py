@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'twitty_py.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tweety-py',
+        'NAME': 'tweety',
         'USER': 'postgres',
         'PASSWORD': 'tweety_336600',
         'HOST': 'localhost'

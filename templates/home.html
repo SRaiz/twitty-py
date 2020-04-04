@@ -16,7 +16,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3" style="border-top: .25rem solid #1cc88a!important;">
-            <h6 class="m-0 font-weight-bold text-primary">Tweets on Australian Bushfires</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tweets on Learn From Home</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,7 +26,8 @@
                             <th>User Name</th>
                             <th>Tweet</th>
                             <th>Tweet Time</th>
-                            <th>Location</th>
+                            <th>Tweet Language</th>
+                            <th>Gender</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +36,8 @@
                                 <td>{{ tweet.user_name }}</td>
                                 <td>{{ tweet.text }}</td>
                                 <td>{{ tweet.created_at }}</td>
-                                <td>{{ tweet.location }}</td>
+                                <td>{{ tweet.tweet_language }}</td>
+                                <td>{{ tweet.gender }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -9,4 +9,7 @@ class Tweet(models.Model):
     user_screenname = models.CharField( max_length = 500 )
     location = models.CharField( max_length = 500 )
     description = models.CharField( max_length = 5000 )
-    url = models.CharField( max_length = 2048 )
+    followers_count = models.IntegerField()
+    friends_count = models.IntegerField()
+    tweet_language = models.CharField( max_length = 15 )
+    gender = models.CharField( max_length = 15 )

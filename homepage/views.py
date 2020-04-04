@@ -1,8 +1,10 @@
+import json
 import os
 
 import tweepy
 from django.http import HttpResponse
 from django.shortcuts import render
+from genderize import Genderize
 
 import update_sql
 
@@ -24,14 +26,18 @@ def authenticate_twitter(request):
     api = tweepy.API(auth, wait_on_rate_limit = True)
 
     #   The search term and date from which data is required. Retweets are filtered here
-    search_words = '#bushfires' + ' -filter:retweets'
-    date_since = '2019-09-01'
+    search_words = '#LearnFromHome' + ' -filter:retweets'
+    date_since = '2020-03-01'
 
     #   Collect Tweets
     tweets = tweepy.Cursor( api.search, q = search_words, lang = 'en', since = date_since, tweet_mode = 'extended' ).items()
 
     tweets_to_show = []
+    counter = 1
     for tweet in tweets:
+        print('====')
+        json_str = json.dumps(tweet._json)
+        
         tweets_to_show.append(
             {
                 'created_at': tweet.created_at,
@@ -41,7 +47,10 @@ def authenticate_twitter(request):
                 'user_screenname': tweet.user.screen_name,
                 'location': tweet.user.location,
                 'description': tweet.user.description,
-                'url': ''
+                'followers_count': tweet.user.followers_count,
+                'friends_count': tweet.user.friends_count,
+                'tweet_language': tweet.lang,
+                'gender': get_gender(tweet.user.name.split(' ')[0])
             }
         )
 
@@ -49,3 +58,8 @@ def authenticate_twitter(request):
     
     tweets = Tweet.objects.all()
     return render(request, 'home.html', {'tweets': tweets})
+
+
+def get_gender(name):
+    name_det = Genderize().get([name])
+    return name_det[0].get('gender')
